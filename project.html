@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --orange: #ff9900;
+            --black: #050505;
+            --card: #121212;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: "Segoe UI", sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND */
+
+        .bg-glow {
+
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background:
+                radial-gradient(circle at 20% 20%,
+                    rgba(255, 153, 0, 0.12),
+                    transparent 25%),
+
+                radial-gradient(circle at 80% 70%,
+                    rgba(255, 153, 0, 0.08),
+                    transparent 30%);
+        }
+
+        /* GLOBAL */
+
+        section {
+            padding: 120px 8%;
+        }
+
+        h2 {
+
+            text-align: center;
+            font-size: 3rem;
+            letter-spacing: 2px;
+        }
+
+        /* HERO */
+
+        .hero {
+
+            min-height: 70vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-content {
+
+            width: min(900px, 100%);
+
+            text-align: center;
+
+            padding: 60px;
+
+            border-radius: 25px;
+
+            background: rgba(255, 255, 255, 0.03);
+
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .15),
+                0 0 50px rgba(255, 153, 0, .05);
+        }
+
+        .hero h1 {
+
+            font-size: clamp(3rem, 8vw, 6rem);
+
+            letter-spacing: 5px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h2 {
+
+            color: var(--orange);
+
+            font-size: 2rem;
+
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+
+            color: #cccccc;
+
+            margin-top: 10px;
+
+            font-size: 1rem;
+        }
+
+        /* DIVIDER */
+
+        .divider {
+
+            width: 120px;
+            height: 3px;
+
+            background: var(--orange);
+
+            margin: 25px auto 50px;
+
+            box-shadow:
+                0 0 10px var(--orange),
+                0 0 25px var(--orange);
+        }
+
+        /* DESCRIPTION */
+
+        .description {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            text-align: center;
+
+            line-height: 1.9;
+
+            color: #d5d5d5;
+        }
+
+        /* FEATURES */
+
+        .features {
+
+            margin-top: 60px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(320px, 1fr));
+
+            gap: 30px;
+        }
+
+        .feature-card {
+
+            background: rgba(255, 255, 255, 0.03);
+
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            transition: .35s ease;
+        }
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-10px) scale(1.03);
+
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .3),
+                0 0 40px rgba(255, 153, 0, .15);
+        }
+
+        .feature-card h3 {
+
+            color: var(--orange);
+
+            margin-bottom: 20px;
+        }
+
+        .feature-card p {
+
+            color: #d0d0d0;
+
+            line-height: 1.8;
+        }
+
+        /* TEAM SECTION */
+
+        .team {
+
+            background:
+                linear-gradient(to bottom,
+                    transparent,
+                    rgba(255, 153, 0, .04));
+        }
+
+        .team-grid {
+
+            margin-top: 50px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 25px;
+        }
+
+        .member {
+
+            background: #111;
+
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            border-radius: 18px;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            transition: .35s ease;
+        }
+
+        .member:hover {
+
+            transform: translateY(-10px);
+
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .25);
+        }
+
+        .member h3 {
+
+            margin-bottom: 15px;
+
+            font-size: 1.2rem;
+        }
+
+        .member p {
+
+            color: #d0d0d0;
+
+            margin-top: 8px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            section {
+                padding: 80px 20px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .hero-content {
+                padding: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-glow"></div>
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>EXPENSE SPLITTER</h1>
+
+            <h2>Web Application</h2>
+
+            <p>Software Engineering / Web Development</p>
+
+            <p>KLE Technological University | 2024-25</p>
+
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+
+    <section class="about">
+
+        <h2>WHAT IS EXPENSE SPLITTER?</h2>
+
+        <div class="divider"></div>
+
+        <p class="description">
+            We are developing a smart web-based application to automate and simplify the
+            management of shared expenses among groups — be it friends, roommates, or project
+            teams. Currently, people rely on informal methods which are error-prone and create
+            misunderstandings. Our system provides a platform where users can create expense
+            groups, add shared expenses, and automatically calculate who owes whom.
+        </p>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <h3>01. Smart Automation</h3>
+
+                <p>
+                    Auto-calculates individual balances with algorithmic precision,
+                    removing the need for manual arithmetic.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>02. Group Management</h3>
+
+                <p>
+                    Create and manage distinct groups for trips,
+                    flatmates, or events with full member tracking.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>03. Full Transparency</h3>
+
+                <p>
+                    Settlement history ensures complete financial
+                    clarity and transaction tracking among all users.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- TEAM -->
+
+    <section class="team">
+
+        <h2>MEET TEAM B2-3</h2>
+
+        <div class="divider"></div>
+
+        <div class="team-grid">
+
+            <div class="member">
+                <h3>ABHINAV RAJ</h3>
+                <p>USN: 01FE24BCS264</p>
+                <p>Roll No: 253</p>
+            </div>
+
+            <div class="member">
+                <h3>MANTHAN RAYKAR</h3>
+                <p>USN: 01FE24BCS255</p>
+                <p>Roll No: 255</p>
+            </div>
+
+            <div class="member">
+                <h3>DIVYA UDNUR</h3>
+                <p>USN: 01FE24BCS199</p>
+                <p>Roll No: 258</p>
+            </div>
+
+            <div class="member">
+                <h3>PRATIKSHA CHOUGULE</h3>
+                <p>USN: 01FE24BCS202</p>
+                <p>Roll No: 260</p>
+            </div>
+
+            <div class="member">
+                <h3>PRANAV CHOUGULE</h3>
+                <p>USN: 01FE24BCS203</p>
+                <p>Roll No: 261</p>
+            </div>
+
+            <div class="member">
+                <h3>AYUSH KUMAR OJHA</h3>
+                <p>USN: 01FE24BCS211</p>
+                <p>Roll No: 269</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
