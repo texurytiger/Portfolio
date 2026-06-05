@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: #000;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+        }
+
+        .requirements-page {
+            width: 100%;
+        }
+
+        .hero {
+
+            height: 300px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-bottom: 2px solid #ff9900;
+
+            background:
+                radial-gradient(circle at center,
+                    rgba(255, 153, 0, .15),
+                    transparent 70%);
+        }
+
+        .hero h1 {
+
+            font-size: 5rem;
+
+            color: #fff;
+
+            text-transform: uppercase;
+
+            letter-spacing: 5px;
+
+            text-shadow:
+                0 0 15px #ff9900;
+        }
+
+        .functional,
+        .non-functional {
+
+            padding: 120px 80px;
+        }
+
+        .section-label {
+
+            color: #ff9900;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 15px;
+        }
+
+        .functional h2,
+        .non-functional h2 {
+
+            font-size: 25px;
+            letter-spacing: 2px;
+
+            margin-bottom: 20px;
+        }
+
+        .underline {
+
+            width: 120px;
+            height: 4px;
+
+            background: #ff9900;
+
+            box-shadow:
+                0 0 10px #ff9900;
+
+            margin-bottom: 60px;
+        }
+
+        .fr-timeline {
+
+            position: relative;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 40px;
+
+            margin-top: 80px;
+        }
+
+        .timeline-line {
+
+            position: absolute;
+
+            top: 120px;
+
+            left: 5%;
+
+            width: 90%;
+
+            height: 4px;
+
+            background: #ff9900;
+
+            box-shadow:
+                0 0 10px #ff9900,
+                0 0 20px #ff9900;
+
+            z-index: 1;
+        }
+
+        .fr-card {
+
+            width: 220px;
+
+            min-height: 180px;
+
+            position: relative;
+
+            z-index: 2;
+
+            padding: 20px;
+
+            border: 2px solid #ff9900;
+
+            background:
+                rgba(255, 153, 0, .05);
+
+            transition: .4s;
+
+            clip-path: polygon(15px 0,
+                    100% 0,
+                    100% calc(100% - 15px),
+                    calc(100% - 15px) 100%,
+                    0 100%,
+                    0 15px);
+        }
+
+        .fr-card:hover {
+
+            transform:
+                translateY(-15px) scale(1.05);
+
+            box-shadow:
+                0 0 20px #ff9900,
+                0 0 50px #ff9900;
+        }
+
+        .timeline-node {
+
+            width: 60px;
+            height: 60px;
+
+            border-radius: 50%;
+
+            border: 3px solid #ff9900;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin: auto;
+
+            margin-bottom: 15px;
+
+            color: #ff9900;
+
+            font-size: 24px;
+
+            box-shadow:
+                0 0 15px #ff9900;
+        }
+
+        .fr-id {
+
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            background: #ff9900;
+
+            color: #000;
+
+            font-weight: 900;
+
+            margin-bottom: 20px;
+        }
+
+        .fr-card h3 {
+            font-size: 32px;
+
+            color: #ff9900;
+
+            margin-bottom: 15px;
+        }
+
+        .fr-card p {
+
+            color: #ccc;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .nfr-list {
+
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .nfr-item {
+
+            position: relative;
+
+            border-left: 4px solid #ff9900;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(255, 153, 0, .08),
+                    rgba(255, 153, 0, .02));
+
+            overflow: hidden;
+        }
+
+        .nfr-item::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 153, 0, .15),
+                    transparent);
+
+            transition: .8s;
+        }
+
+        .nfr-item:hover::before {
+            left: 100%;
+        }
+
+        .nfr-item:hover {
+
+            transform:
+                translateX(10px) scale(1.01);
+
+            box-shadow:
+                0 0 15px #ff9900,
+                0 0 30px rgba(255, 153, 0, .35);
+        }
+
+        .nfr-item span {
+
+            color: #ff9900;
+
+            font-weight: 900;
+        }
+
+        .nfr-item h3 {
+            font-size: 32px;
+
+            display: inline-block;
+
+            margin-left: 15px;
+
+            color: #fff;
+        }
+
+        .nfr-item p {
+            font-size: 22px;
+            margin-left: 35px;
+            margin-top: 15px;
+
+            color: #ccc;
+        }
+
+        .nfr-item {
+
+            position: relative;
+
+            border-left: 4px solid #ff9900;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(255, 153, 0, .08),
+                    rgba(255, 153, 0, .02));
+
+            overflow: hidden;
+        }
+        
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+
+    <section class="requirements-page">
+
+        <div class="hero">
+
+            <h1>SYSTEM REQUIREMENTS</h1>
+
+        </div>
+
+        <section class="functional">
+
+            <p class="section-label">MODULE 01</p>
+
+            <h2>FUNCTIONAL REQUIREMENTS</h2>
+
+            <div class="underline"></div>
+
+            <div class="fr-timeline">
+
+                <div class="timeline-line"></div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <span class="fr-id">FR-01</span>
+                    <h3>Categorization</h3>
+                    <p>
+                        Users shall categorize expenses and specify
+                        the number of participants.
+                    </p>
+                </div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="fr-id">FR-02</span>
+                    <h3>Group Creation</h3>
+                    <p>
+                        Users shall create groups and manage
+                        members and expenses.
+                    </p>
+                </div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-circle-plus"></i>
+                    </div>
+                    <span class="fr-id">FR-03</span>
+                    <h3>Add Expense</h3>
+                    <p>
+                        Users shall log shared expenses with
+                        amount, description and date.
+                    </p>
+                </div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <span class="fr-id">FR-04</span>
+                    <h3>Balance Calculation</h3>
+                    <p>
+                        Automatically calculate balances
+                        among group members.
+                    </p>
+                </div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-chart-column"></i>
+                    </div>
+                    <span class="fr-id">FR-05</span>
+                    <h3>Expense Summary</h3>
+                    <p>
+                        View consolidated expense dashboard
+                        and balances.
+                    </p>
+                </div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <span class="fr-id">FR-06</span>
+                    <h3>Settlement</h3>
+                    <p>
+                        Mark debts as paid and update
+                        balances instantly.
+                    </p>
+                </div>
+
+                <div class="fr-card">
+                    <div class="timeline-node">
+                        <i class="fas fa-clock-rotate-left"></i>
+                    </div>
+                    <span class="fr-id">FR-07</span>
+                    <h3>Transaction History</h3>
+                    <p>
+                        Complete history of expenses and
+                        settlement events.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="non-functional">
+
+            <p class="section-label">MODULE 02</p>
+
+            <h2>NON FUNCTIONAL REQUIREMENTS</h2>
+
+            <div class="underline"></div>
+
+            <div class="nfr-list">
+
+                <div class="nfr-item">
+                    <span>NFR-01</span>
+                    <h3>Performance</h3>
+                    <p>System should load pages within 2 seconds.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-02</span>
+                    <h3>Security</h3>
+                    <p>All user data must be encrypted.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-03</span>
+                    <h3>Usability</h3>
+                    <p>Interface must remain simple and intuitive.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-04</span>
+                    <h3>Reliability</h3>
+                    <p>99.99% uptime without unexpected failures.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-05</span>
+                    <h3>Availability</h3>
+                    <p>Accessible 24/7 across all supported devices.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-06</span>
+                    <h3>Data Accuracy</h3>
+                    <p>No balance or calculation inconsistencies.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-07</span>
+                    <h3>Maintainability</h3>
+                    <p>Modular architecture with easy updates.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-08</span>
+                    <h3>Compatibility</h3>
+                    <p>Works across Chrome, Firefox and Safari.</p>
+                </div>
+
+                <div class="nfr-item">
+                    <span>NFR-09</span>
+                    <h3>Scalability</h3>
+                    <p>Support growth in users and expense groups.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+</body>
+
+</html>
