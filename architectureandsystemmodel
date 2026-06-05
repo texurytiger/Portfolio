@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture & System Model</title>
+
+    <style>
+        :root {
+            --orange: #ff9900;
+            --black: #050505;
+            --dark: #111111;
+            --card: #161616;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #111 0%, #000 70%);
+            color: white;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 153, 0, .08), transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255, 153, 0, .05), transparent 25%);
+            pointer-events: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        /* Main Title */
+        .main-title {
+            text-align: center;
+            padding: 22px;
+            margin-bottom: 30px;
+
+            border: 1px solid rgba(255, 153, 0, .3);
+            background: rgba(255, 255, 255, .03);
+            backdrop-filter: blur(10px);
+
+            color: white;
+            font-size: 2.3rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 0 15px rgba(255, 153, 0, .15);
+        }
+
+        /* Top Grid */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 153, 0, .25);
+            border-radius: 18px;
+            padding: 25px;
+            transition: .35s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .panel:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .25),
+                0 0 40px rgba(255, 153, 0, .15);
+        }
+
+        /* Section Titles */
+        .section-title {
+            color: var(--orange);
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(to right,
+                    var(--orange),
+                    transparent);
+            margin-top: 10px;
+        }
+
+        /* Architecture Items */
+        .arch-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .arch-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 18px;
+
+            border-left: 4px solid var(--orange);
+            background: rgba(255, 255, 255, .04);
+
+            border-radius: 10px;
+            transition: .3s ease;
+        }
+
+        .arch-item:hover {
+            transform: translateX(8px);
+            background: rgba(255, 153, 0, .12);
+        }
+
+        .arch-number {
+            color: var(--orange);
+            font-weight: 700;
+            min-width: 40px;
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .tech-card {
+            background: #111;
+            border: 1px solid rgba(255, 153, 0, .3);
+
+            border-radius: 14px;
+            text-align: center;
+            padding: 30px 15px;
+
+            transition: .35s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-8px) scale(1.03);
+
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 15px rgba(255, 153, 0, .25),
+                0 0 30px rgba(255, 153, 0, .12);
+        }
+
+        .tech-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .tech-role {
+            margin-top: 8px;
+            color: #cfcfcf;
+        }
+
+        /* Overview Section */
+        .overview {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            border-radius: 18px;
+            padding: 30px;
+
+            transition: .35s ease;
+        }
+
+        .overview:hover {
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .25);
+        }
+
+        .diagram {
+            margin-top: 40px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        /* Main Modules */
+        .main-module {
+            width: 60%;
+            text-align: center;
+
+            background: rgba(255, 153, 0, .12);
+            border: 1px solid rgba(255, 153, 0, .35);
+
+            padding: 20px;
+            border-radius: 12px;
+
+            font-size: 1.2rem;
+            font-weight: 600;
+
+            transition: .3s ease;
+        }
+
+        .main-module:hover {
+            transform: scale(1.04);
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .25);
+        }
+
+        .arrow {
+            color: var(--orange);
+            font-size: 2rem;
+        }
+
+        /* Bottom Modules */
+        .bottom-modules {
+            width: 100%;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .module {
+            text-align: center;
+
+            background: #111;
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            border-radius: 14px;
+            padding: 28px 15px;
+
+            transition: .35s ease;
+        }
+
+        .module:hover {
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 0 15px rgba(255, 153, 0, .25);
+
+            border-color: var(--orange);
+        }
+
+        .module-title {
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media(max-width:1000px) {
+
+            .top-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-modules {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-module {
+                width: 90%;
+            }
+        }
+
+        @media(max-width:650px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-modules {
+                grid-template-columns: 1fr;
+            }
+
+            .main-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="main-title">
+            ARCHITECTURE & SYSTEM MODEL
+        </div>
+
+        <div class="top-grid">
+
+            <!-- Layered Architecture -->
+            <div class="panel">
+
+                <div class="section-title">
+                    LAYERED ARCHITECTURE
+                </div>
+
+                <div class="arch-list">
+
+                    <div class="arch-item">
+                        <div class="arch-number">01</div>
+                        <div>Presentation (UI/Vanilla JS)</div>
+                    </div>
+
+                    <div class="arch-item">
+                        <div class="arch-number">02</div>
+                        <div>Application Logic (Express/JWT)</div>
+                    </div>
+
+                    <div class="arch-item">
+                        <div class="arch-number">03</div>
+                        <div>Business Logic (Split Engine)</div>
+                    </div>
+
+                    <div class="arch-item">
+                        <div class="arch-number">04</div>
+                        <div>Data Access (Mongoose ODM)</div>
+                    </div>
+
+                    <div class="arch-item">
+                        <div class="arch-number">05</div>
+                        <div>Persistence (MongoDB 7)</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="panel">
+
+                <div class="section-title">
+                    TECHNOLOGY STACK
+                </div>
+
+                <div class="tech-grid">
+
+                    <div class="tech-card">
+                        <div class="tech-name">MongoDB</div>
+                        <div class="tech-role">Database</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-name">Node.js</div>
+                        <div class="tech-role">Server</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-name">Express API</div>
+                        <div class="tech-role">Routing</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-name">Bcrypt & JWT</div>
+                        <div class="tech-role">Security</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- System Overview -->
+        <div class="overview">
+
+            <div class="section-title">
+                SYSTEM OVERVIEW DIAGRAM
+            </div>
+
+            <div class="diagram">
+
+                <div class="main-module">
+                    Authentication & Security Module
+                </div>
+
+                <div class="arrow">▼</div>
+
+                <div class="main-module">
+                    Expense Splitter Management Engine
+                </div>
+
+                <div class="arrow">▼</div>
+
+                <div class="bottom-modules">
+
+                    <div class="module">
+                        <div class="module-title">
+                            User<br>Module
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-title">
+                            Group<br>Module
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-title">
+                            Expense<br>Module
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-title">
+                            Admin<br>Module
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
