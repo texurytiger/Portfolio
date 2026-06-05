@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Outcomes — Ayush Ojha</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --black: #000000;
+            --off-black: #0d0d0d;
+            --dark-panel: #111111;
+            --card-bg: #161616;
+            --orange: #ff9900;
+            --white: #fafafa;
+            --muted: #777;
+            --border: #222;
+            --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden
+        }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background: #000;
+            color: var(--white);
+            font-size: 15px;
+            line-height: 1.7;
+            overflow-x: hidden
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--orange);
+            border-radius: 3px
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(36px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: .4
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes scanline {
+            0% {
+                top: -60%
+            }
+
+            100% {
+                top: 160%
+            }
+        }
+
+        .animate-load {
+            opacity: 0;
+            animation: fadeUp .9s cubic-bezier(.2, .8, .2, 1) forwards
+        }
+
+        .delay-1 {
+            animation-delay: .1s
+        }
+
+        .delay-2 {
+            animation-delay: .25s
+        }
+
+        .delay-3 {
+            animation-delay: .4s
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(44px);
+            transition: all .75s cubic-bezier(.25, .8, .25, 1)
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.97);
+            backdrop-filter: blur(10px);
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 66px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: .06em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .nav-brand::before {
+            content: '';
+            display: block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--orange);
+            animation: pulse 2s infinite
+        }
+
+        .nav-brand:hover {
+            color: var(--orange)
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: .8rem
+        }
+
+        .nav-project-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 7px 15px;
+            font-family: 'Syne', sans-serif;
+            font-size: .82rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 3px;
+            letter-spacing: .05em;
+        }
+
+        .nav-project-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange)
+        }
+
+        .dropdown {
+            position: relative
+        }
+
+        .dropbtn {
+            background: transparent;
+            color: var(--muted);
+            padding: 9px 15px;
+            font-size: .88rem;
+            font-family: 'Syne', sans-serif;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: var(--transition);
+            border-radius: 3px;
+            letter-spacing: .05em;
+        }
+
+        .dropbtn:hover {
+            color: var(--orange);
+            border-color: var(--orange)
+        }
+
+        .dropdown-content {
+            position: absolute;
+            background: var(--dark-panel);
+            min-width: 210px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            z-index: 1;
+            top: 120%;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all .28s cubic-bezier(.25, .8, .25, 1);
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            top: 100%;
+            transform: translateY(4px)
+        }
+
+        .dropdown-content a {
+            color: var(--muted);
+            padding: 13px 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .88rem;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none
+        }
+
+        .dropdown-content a:hover {
+            color: var(--white);
+            background: var(--card-bg);
+            padding-left: 26px
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 7rem 2.5rem 6rem;
+            text-align: center;
+            background: #000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(255, 153, 0, 0.025) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(255, 153, 0, 0.025) 50px);
+            pointer-events: none;
+        }
+
+        .hero-scan {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(transparent, rgba(255, 153, 0, .04), transparent);
+            animation: scanline 7s linear infinite;
+            pointer-events: none
+        }
+
+        .hero-kicker {
+            display: inline-block;
+            color: var(--orange);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 153, 0, .3);
+            padding: 5px 16px;
+            border-radius: 2px;
+            margin-bottom: 1.6rem
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: .9rem
+        }
+
+        .hero h1 span {
+            color: var(--orange)
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 540px;
+            margin: 0 auto
+        }
+
+        /* ── LAYOUT ── */
+        .section {
+            padding: 5rem 2.5rem;
+            max-width: 1240px;
+            margin: 0 auto
+        }
+
+        .outcome-panel {
+            display: none;
+            opacity: 0
+        }
+
+        .outcome-panel.active {
+            display: block;
+            animation: fadeIn .5s ease forwards
+        }
+
+        /* ── WT SIDEBAR LAYOUT ── */
+        .wt-layout {
+            display: flex;
+            gap: 4rem;
+            align-items: flex-start
+        }
+
+        .wt-sidebar {
+            width: 155px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 88px
+        }
+
+        .wt-sidebar-label {
+            font-size: .68rem;
+            letter-spacing: .2em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+            padding-bottom: .7rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .wt-tabs {
+            list-style: none;
+            padding: 0;
+            margin: 0
+        }
+
+        .wt-tab {
+            margin-bottom: .4rem;
+            cursor: pointer
+        }
+
+        .wt-tab span {
+            display: block;
+            padding: 9px 13px;
+            border-radius: 3px;
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: .04em;
+            transition: var(--transition);
+            border: 1px solid transparent
+        }
+
+        .wt-tab.active span {
+            background: var(--orange);
+            color: #000;
+            border-color: var(--orange)
+        }
+
+        .wt-tab:not(.active):hover span {
+            color: var(--white);
+            border-color: var(--border);
+            background: var(--card-bg)
+        }
+
+        .wt-content {
+            flex-grow: 1;
+            min-width: 0
+        }
+
+        .wt-subpanel {
+            display: none;
+            opacity: 0
+        }
+
+        .wt-subpanel.active {
+            display: block;
+            animation: fadeUp .55s cubic-bezier(.2, .8, .2, 1) forwards
+        }
+
+        @media(max-width:860px) {
+            .wt-layout {
+                flex-direction: column;
+                gap: 1.5rem
+            }
+
+            .wt-sidebar {
+                width: 100%;
+                position: static
+            }
+
+            .wt-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: .5rem
+            }
+
+            .wt-tab {
+                margin-bottom: 0
+            }
+
+            .interactive-demo {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ── DEMO SECTION ── */
+        .demo-section {
+            margin-bottom: 5rem
+        }
+
+        .demo-header {
+            margin-bottom: 2.2rem
+        }
+
+        .demo-number {
+            font-size: .72rem;
+            color: var(--orange);
+            letter-spacing: .2em;
+            font-weight: 700;
+            margin-bottom: .3rem
+        }
+
+        .demo-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            color: var(--white);
+            font-weight: 700;
+            margin-bottom: .4rem
+        }
+
+        .demo-header p {
+            color: var(--muted);
+            font-size: .92rem;
+            max-width: 640px
+        }
+
+        .demo-divider {
+            width: 36px;
+            height: 2px;
+            background: var(--orange);
+            margin-top: .8rem;
+            transition: width .5s ease
+        }
+
+        .demo-section:hover .demo-divider {
+            width: 110px
+        }
+
+        .interactive-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: stretch
+        }
+
+        /* ── CODE WINDOW ── */
+        .code-window {
+            background: #080808;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .code-window:hover {
+            border-color: var(--orange);
+            transform: translateY(-5px);
+            box-shadow: 0 14px 40px rgba(255, 153, 0, .1)
+        }
+
+        .window-header {
+            background: #0d0d0d;
+            padding: .85rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px
+        }
+
+        .window-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
+        }
+
+        .dot-red {
+            background: #ff5f56
+        }
+
+        .dot-yellow {
+            background: #ffbd2e
+        }
+
+        .dot-green {
+            background: #27c93f
+        }
+
+        .window-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
+            color: #444;
+            margin-left: 4px
+        }
+
+        .code-window pre {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+            flex-grow: 1
+        }
+
+        .code-window code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem;
+            color: #bbb;
+            line-height: 1.75
+        }
+
+        .t-tag {
+            color: #ff9900
+        }
+
+        .t-attr {
+            color: #79c0ff
+        }
+
+        .t-str {
+            color: #a5d6ff
+        }
+
+        .t-text {
+            color: #d2a8ff
+        }
+
+        .t-kw {
+            color: #ff7b72
+        }
+
+        .t-fn {
+            color: #ffa657
+        }
+
+        .t-var {
+            color: #e6edf3
+        }
+
+        .t-comment {
+            color: #444
+        }
+
+        .t-string {
+            color: #a5d6ff
+        }
+
+        .t-num {
+            color: #79c0ff
+        }
+
+        .t-prop {
+            color: #79c0ff
+        }
+
+        /* ── OUTPUT WINDOW ── */
+        .output-window {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.8rem;
+            color: #111;
+            transition: var(--transition);
+        }
+
+        .output-window:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, .25)
+        }
+
+        .output-label {
+            font-size: .7rem;
+            font-weight: 700;
+            color: #bbb;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+            padding-bottom: .7rem;
+            border-bottom: 2px dashed #e8e8e8
+        }
+
+        /* output renders */
+        .render-article h1 {
+            font-size: 1.35rem;
+            margin-bottom: .4rem;
+            color: #111;
+            font-family: 'Playfair Display', serif
+        }
+
+        .render-article p {
+            font-size: .92rem;
+            margin-bottom: .7rem;
+            color: #666
+        }
+
+        .render-article hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: .9rem 0
+        }
+
+        .demo-form label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: .4rem;
+            color: #111;
+            font-size: .88rem
+        }
+
+        .demo-form input {
+            width: 100%;
+            padding: .85rem;
+            margin-bottom: 1.1rem;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            font-family: 'Syne', sans-serif;
+            font-size: .88rem;
+            transition: all .3s;
+            background: #fff;
+            color: #111
+        }
+
+        .demo-form input:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, .12)
+        }
+
+        .demo-form button {
+            width: 100%;
+            background: #111;
+            color: #fff;
+            border: none;
+            padding: .95rem;
+            font-weight: 700;
+            font-size: .95rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Syne', sans-serif;
+            letter-spacing: .04em
+        }
+
+        .demo-form button:hover {
+            background: var(--orange);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, .3)
+        }
+
+        .render-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .88rem
+        }
+
+        .render-table th,
+        .render-table td {
+            border-bottom: 1px solid #eee;
+            padding: .9rem .8rem;
+            text-align: left
+        }
+
+        .render-table th {
+            background: #f8f8f8;
+            color: #111;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: .72rem;
+            letter-spacing: .08em
+        }
+
+        .render-table tr:hover td {
+            background: #fff8ec
+        }
+
+        /* ── CSS DEMO RENDERS ── */
+        .flex-demo {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: .5rem
+        }
+
+        .flex-item {
+            flex: 1;
+            background: #111;
+            color: var(--orange);
+            border: 1px solid var(--border);
+            padding: .7rem;
+            text-align: center;
+            border-radius: 4px;
+            font-size: .82rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: .5rem
+        }
+
+        .grid-item {
+            background: #111;
+            color: var(--white);
+            border: 1px solid var(--border);
+            padding: .65rem;
+            text-align: center;
+            border-radius: 4px;
+            font-size: .8rem;
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .grid-item.span2 {
+            grid-column: span 2;
+            color: var(--orange)
+        }
+
+        .anim-btn {
+            display: block;
+            margin: 2rem auto 0;
+            background: #111;
+            color: #fff;
+            border: 2px solid var(--border);
+            padding: 13px 30px;
+            border-radius: 5px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: .95rem;
+            cursor: pointer;
+            transition: all .4s ease;
+            letter-spacing: .04em;
+        }
+
+        .anim-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: var(--orange);
+            color: #000;
+            border-color: var(--orange);
+            box-shadow: 0 12px 28px rgba(255, 153, 0, .35)
+        }
+
+        /* ── JS DEMO RENDERS ── */
+        .theme-box {
+            padding: 1.2rem;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: .9rem;
+            transition: all .4s ease;
+        }
+
+        .theme-box.light {
+            background: #fff;
+            color: #111;
+            border: 1px solid #ddd
+        }
+
+        .theme-box.dark {
+            background: #111;
+            color: #fff;
+            border: 1px solid #333
+        }
+
+        .toggle-btn {
+            width: 100%;
+            background: #111;
+            color: #fff;
+            border: 2px solid #333;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: .9rem;
+        }
+
+        .toggle-btn:hover {
+            background: var(--orange);
+            color: #000;
+            border-color: var(--orange)
+        }
+
+        .fetch-btn {
+            width: 100%;
+            background: var(--orange);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: .9rem;
+            margin-bottom: .8rem;
+        }
+
+        .fetch-btn:hover {
+            background: #e68a00;
+            transform: translateY(-2px)
+        }
+
+        .fetch-result {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
+            color: #555;
+            background: #f8f8f8;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            min-height: 60px;
+            transition: all .3s
+        }
+
+        .counter-display {
+            text-align: center;
+            margin-bottom: 1.2rem
+        }
+
+        .counter-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #111
+        }
+
+        .counter-controls {
+            display: flex;
+            gap: .6rem
+        }
+
+        .cnt-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            background: #fff;
+            color: #111;
+            font-size: 1.2rem;
+            font-weight: 900;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Syne', sans-serif;
+        }
+
+        .cnt-btn:hover {
+            background: #111;
+            color: var(--orange);
+            border-color: #111
+        }
+
+        /* ── NODE TERMINAL OUTPUT ── */
+        .terminal {
+            background: #0a0a0a;
+            border-radius: 6px;
+            padding: 1.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem;
+            color: #ccc;
+            line-height: 1.9;
+            border: 1px solid var(--border)
+        }
+
+        .terminal .prompt {
+            color: #555
+        }
+
+        .terminal .success {
+            color: #27c93f
+        }
+
+        .terminal .note {
+            color: #555;
+            font-size: .75rem;
+            margin-top: .8rem;
+            padding-top: .8rem;
+            border-top: 1px solid #1a1a1a
+        }
+
+        .hover-demo-btn {
+            display: block;
+            margin: 1.5rem auto 0;
+            background: #111;
+            color: #fff;
+            border: 2px solid #333;
+            padding: 14px 32px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all .3s;
+            letter-spacing: .04em;
+        }
+
+        .hover-demo-btn:hover {
+            background: var(--orange);
+            color: #000;
+            border-color: var(--orange)
+        }
+
+        /* ── EMPTY TAB ── */
+        .empty-tab-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            color: var(--muted)
+        }
+
+        .empty-tab-state h3 {
+            color: var(--orange);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: .8rem
+        }
+
+        /* ── NAVBAR PROJECT SECTION ── */
+        .navbar-project-section {
+            margin-top: 4rem
+        }
+
+        .section-title-bar {
+            margin-bottom: 3rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .section-title-bar h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: .4rem
+        }
+
+        .section-title-bar p {
+            color: var(--muted);
+            font-size: .92rem
+        }
+
+        .navbar-project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem
+        }
+
+        @media(max-width:860px) {
+            .navbar-project-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .sub-label {
+            font-size: .68rem;
+            color: var(--muted);
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            margin-bottom: .9rem;
+            font-weight: 700
+        }
+
+        .nav-preview-wrap {
+            background: var(--dark-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .nav-preview-bar {
+            background: #0d0d0d;
+            padding: .6rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--orange)
+        }
+
+        .fake-navbar-demo {
+            display: flex;
+            height: 380px
+        }
+
+        .fake-sidebar {
+            width: 195px;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: width .3s ease-in;
+            border-right: 1px solid #1a1a1a;
+            flex-shrink: 0;
+        }
+
+        .fake-sidebar.closed {
+            width: 58px
+        }
+
+        .fake-toggle {
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 13px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #111;
+        }
+
+        .fake-toggle svg {
+            width: 22px;
+            height: 22px
+        }
+
+        .fake-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 15px;
+            color: #888;
+            font-size: .8rem;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all .3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .fake-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #fff;
+            transform: scaleY(0);
+            transition: transform .45s ease
+        }
+
+        .fake-link:hover {
+            background: #111;
+            color: #fff
+        }
+
+        .fake-link:hover::after {
+            transform: scaleY(1)
+        }
+
+        .fake-link svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            color: var(--orange)
+        }
+
+        .link-label {
+            transition: opacity .25s, max-width .3s;
+            overflow: hidden;
+            max-width: 140px
+        }
+
+        .fake-sidebar.closed .link-label {
+            opacity: 0;
+            max-width: 0
+        }
+
+        .preview-hint {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: .8rem;
+            padding: 1rem;
+            text-align: center
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #000;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem
+        }
+
+        .footer-bottom {
+            color: var(--muted);
+            font-size: .83rem;
+            letter-spacing: .08em
+        }
+
+        .footer-bottom span {
+            color: var(--orange)
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a class="nav-brand animate-load" href="#">Manthan Raykar</a>
+        <div class="nav-menu animate-load delay-1">
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-scan"></div>
+        <div class="hero-kicker animate-load delay-1">Portfolio · 2026</div>
+        <h1 class="animate-load delay-2">Learning <span>Outcomes</span></h1>
+        <p class="animate-load delay-3">A breakdown of the code I wrote and the system architectures I designed this
+            semester.</p>
+    </section>
+
+    <div class="section">
+        <div id="panel-wt" class="outcome-panel active">
+            <div class="wt-layout">
+
+                <!-- SIDEBAR -->
+                <aside class="wt-sidebar">
+                    <div class="wt-sidebar-label">Topics</div>
+                    <ul class="wt-tabs">
+                        <li class="wt-tab active" onclick="switchWtTab(event,'html')"><span>HTML</span></li>
+                        <li class="wt-tab" onclick="switchWtTab(event,'css')"><span>CSS</span></li>
+                        <li class="wt-tab" onclick="switchWtTab(event,'js')"><span>JS</span></li>
+                        <li class="wt-tab" onclick="switchWtTab(event,'nodejs')"><span>NodeJs</span></li>
+                        <li class="wt-tab" onclick="switchWtTab(event,'react')"><span>React JS</span></li>
+                        <li class="wt-tab" onclick="switchWtTab(event,'navbar')"><span>My Navbar</span></li>
+                    </ul>
+                </aside>
+
+                <div class="wt-content">
+
+                    <!-- ══ HTML ══ -->
+                    <div id="wt-html" class="wt-subpanel active">
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">01 ·</div>
+                                <h2>Semantic Document Structure</h2>
+                                <p>Using HTML5 semantic tags to create accessible and well-structured documents.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">article.html</div>
+                                    </div>
+                                    <pre><code><span class="t-tag">&lt;article&gt;</span>
+  <span class="t-tag">&lt;header&gt;</span>
+    <span class="t-tag">&lt;h1&gt;</span><span class="t-text">Understanding Web Standards</span><span class="t-tag">&lt;/h1&gt;</span>
+    <span class="t-tag">&lt;p&gt;</span><span class="t-text">Published on June 5, 2026</span><span class="t-tag">&lt;/p&gt;</span>
+  <span class="t-tag">&lt;/header&gt;</span>
+  <span class="t-tag">&lt;hr&gt;</span>
+  <span class="t-tag">&lt;section&gt;</span>
+    <span class="t-tag">&lt;p&gt;</span><span class="t-text">Semantic HTML helps screen readers
+    understand context.</span><span class="t-tag">&lt;/p&gt;</span>
+  <span class="t-tag">&lt;/section&gt;</span>
+<span class="t-tag">&lt;/article&gt;</span></code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div class="render-article">
+                                        <article>
+                                            <header>
+                                                <h1>Understanding Web Standards</h1>
+                                                <p>Published on June 5, 2026</p>
+                                            </header>
+                                            <hr>
+                                            <section>
+                                                <p>Semantic HTML helps screen readers understand context.</p>
+                                            </section>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">02 ·</div>
+                                <h2>Forms & User Input</h2>
+                                <p>Building a product listing form utilizing required attributes, semantic input types,
+                                    and structured labels.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">new-listing.html</div>
+                                    </div>
+                                    <pre><code><span class="t-tag">&lt;form</span> <span class="t-attr">action</span>=<span class="t-str">"/post"</span>
+      <span class="t-attr">method</span>=<span class="t-str">"POST"</span><span class="t-tag">&gt;</span>
+
+  <span class="t-tag">&lt;label</span> <span class="t-attr">for</span>=<span class="t-str">"item"</span><span class="t-tag">&gt;</span>Product Title:<span class="t-tag">&lt;/label&gt;</span>
+  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-str">"text"</span>
+         <span class="t-attr">id</span>=<span class="t-str">"item"</span> <span class="t-attr">required</span><span class="t-tag">&gt;</span>
+
+  <span class="t-tag">&lt;label</span> <span class="t-attr">for</span>=<span class="t-str">"price"</span><span class="t-tag">&gt;</span>Price (₹):<span class="t-tag">&lt;/label&gt;</span>
+  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-str">"number"</span>
+         <span class="t-attr">id</span>=<span class="t-str">"price"</span> <span class="t-attr">min</span>=<span class="t-str">"0"</span><span class="t-tag">&gt;</span>
+
+  <span class="t-tag">&lt;button</span> <span class="t-attr">type</span>=<span class="t-str">"submit"</span><span class="t-tag">&gt;</span>Post Listing<span class="t-tag">&lt;/button&gt;</span>
+
+<span class="t-tag">&lt;/form&gt;</span></code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <form class="demo-form" onsubmit="event.preventDefault();alert('Listing Posted!')">
+                                        <label for="item">Product Title:</label>
+                                        <input type="text" id="item" placeholder="e.g. Basic Electronics Book" required>
+                                        <label for="price">Price (₹):</label>
+                                        <input type="number" id="price" value="0" min="0">
+                                        <button type="submit">Post Listing</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">03 ·</div>
+                                <h2>Data Tabulation</h2>
+                                <p>Organizing structured data using HTML table rows, headers, and data cells.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">data-table.html</div>
+                                    </div>
+                                    <pre><code><span class="t-tag">&lt;table&gt;</span>
+  <span class="t-tag">&lt;thead&gt;</span>
+    <span class="t-tag">&lt;tr&gt;</span>
+      <span class="t-tag">&lt;th&gt;</span>Subject<span class="t-tag">&lt;/th&gt;</span>
+      <span class="t-tag">&lt;th&gt;</span>Grade<span class="t-tag">&lt;/th&gt;</span>
+    <span class="t-tag">&lt;/tr&gt;</span>
+  <span class="t-tag">&lt;/thead&gt;</span>
+  <span class="t-tag">&lt;tbody&gt;</span>
+    <span class="t-tag">&lt;tr&gt;</span>
+      <span class="t-tag">&lt;td&gt;</span>Web Technology<span class="t-tag">&lt;/td&gt;</span>
+      <span class="t-tag">&lt;td&gt;</span>A+<span class="t-tag">&lt;/td&gt;</span>
+    <span class="t-tag">&lt;/tr&gt;</span>
+    <span class="t-tag">&lt;tr&gt;</span>
+      <span class="t-tag">&lt;td&gt;</span>Software Eng.<span class="t-tag">&lt;/td&gt;</span>
+      <span class="t-tag">&lt;td&gt;</span>A<span class="t-tag">&lt;/td&gt;</span>
+    <span class="t-tag">&lt;/tr&gt;</span>
+  <span class="t-tag">&lt;/tbody&gt;</span>
+<span class="t-tag">&lt;/table&gt;</span></code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <table class="render-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Subject</th>
+                                                <th>Grade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Web Technology</td>
+                                                <td>A+</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Software Eng.</td>
+                                                <td>A</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /html -->
+
+                    <!-- ══ CSS ══ -->
+                    <div id="wt-css" class="wt-subpanel">
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">01 ·</div>
+                                <h2>Flexbox Layouts</h2>
+                                <p>Using CSS Flexible Box Module to align and distribute space dynamically.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">layout.css</div>
+                                    </div>
+                                    <pre><code><span class="t-var">.flex-container</span> {
+  <span class="t-prop">display</span>: flex;
+  <span class="t-prop">justify-content</span>:
+    space-between;
+  <span class="t-prop">gap</span>: <span class="t-num">10px</span>;
+}</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div class="flex-demo">
+                                        <div class="flex-item">Item 1</div>
+                                        <div class="flex-item">Item 2</div>
+                                        <div class="flex-item">Item 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">02 ·</div>
+                                <h2>CSS Grid Systems</h2>
+                                <p>Structuring complex, two-dimensional responsive layouts using CSS Grid templates.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">grid.css</div>
+                                    </div>
+                                    <pre><code><span class="t-var">.grid-container</span> {
+  <span class="t-prop">display</span>: grid;
+  <span class="t-prop">grid-template-columns</span>:
+    repeat(<span class="t-num">3</span>, <span class="t-num">1fr</span>);
+}
+<span class="t-var">.hero-item</span> {
+  <span class="t-prop">grid-column</span>: span <span class="t-num">2</span>;
+}</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div class="grid-demo">
+                                        <div class="grid-item span2">Span 2</div>
+                                        <div class="grid-item">Col 3</div>
+                                        <div class="grid-item">Col 1</div>
+                                        <div class="grid-item">Col 2</div>
+                                        <div class="grid-item">Col 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">03 ·</div>
+                                <h2>Animations & Transitions</h2>
+                                <p>Creating fluid micro-interactions using CSS transforms. Try hovering below.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">animations.css</div>
+                                    </div>
+                                    <pre><code><span class="t-var">.btn</span> {
+  <span class="t-prop">transition</span>: all <span class="t-num">0.4s</span> ease;
+}
+<span class="t-var">.btn</span>:hover {
+  <span class="t-prop">transform</span>:
+    translateY(<span class="t-num">-8px</span>)
+    scale(<span class="t-num">1.05</span>);
+  <span class="t-prop">background-color</span>:
+    <span class="t-string">#ff9900</span>;
+}</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <button class="anim-btn">Hover Me!</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /css -->
+
+                    <!-- ══ JS ══ -->
+                    <div id="wt-js" class="wt-subpanel">
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">01 ·</div>
+                                <h2>DOM Manipulation & Events</h2>
+                                <p>Interacting with the DOM to dynamically change content and styles based on user
+                                    actions.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">script.js</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">const</span> <span class="t-var">btn</span> =
+  document.<span class="t-fn">getElementById</span>(<span class="t-string">'btn'</span>);
+<span class="t-kw">const</span> <span class="t-var">box</span> =
+  document.<span class="t-fn">getElementById</span>(<span class="t-string">'box'</span>);
+
+<span class="t-var">btn</span>.<span class="t-fn">addEventListener</span>(
+  <span class="t-string">'click'</span>, () <span class="t-kw">=&gt;</span> {
+    <span class="t-var">box</span>.classList.<span class="t-fn">toggle</span>(
+      <span class="t-string">'dark-mode'</span>
+    );
+  }
+);</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div id="theme-box" class="theme-box light">Light Mode Active</div>
+                                    <button class="toggle-btn" onclick="toggleTheme()">Toggle Theme</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">02 ·</div>
+                                <h2>Asynchronous Fetching</h2>
+                                <p>Using Async/Await to handle network requests without blocking the main thread.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">api.js</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">async function</span> <span class="t-fn">fetchUser</span>() {
+  <span class="t-kw">const</span> <span class="t-var">res</span> = <span class="t-kw">await</span>
+    <span class="t-fn">fetch</span>(<span class="t-string">'/api/user/1'</span>);
+  <span class="t-kw">const</span> <span class="t-var">data</span> = <span class="t-kw">await</span>
+    <span class="t-var">res</span>.<span class="t-fn">json</span>();
+  <span class="t-fn">renderCard</span>(
+    <span class="t-var">data</span>.name,
+    <span class="t-var">data</span>.role
+  );
+}</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <button class="fetch-btn" onclick="fakeFetch()">Fetch User Data</button>
+                                    <div id="fetch-result" class="fetch-result">Click to fetch…</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">03 ·</div>
+                                <h2>State Logic</h2>
+                                <p>Managing client-side state and implementing pure JavaScript logic.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">counter.js</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">let</span> <span class="t-var">count</span> = <span class="t-num">0</span>;
+
+<span class="t-kw">function</span> <span class="t-fn">updateCount</span>(<span class="t-var">amt</span>) {
+  <span class="t-var">count</span> += <span class="t-var">amt</span>;
+  display.<span class="t-prop">innerText</span>
+    = <span class="t-var">count</span>;
+}</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div class="counter-display"><span class="counter-num" id="counter-num">0</span>
+                                    </div>
+                                    <div class="counter-controls">
+                                        <button class="cnt-btn" onclick="updateCounter(-1)">−</button>
+                                        <button class="cnt-btn" onclick="updateCounter(1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /js -->
+
+                    <!-- ══ NODEJS ══ -->
+                    <div id="wt-nodejs" class="wt-subpanel">
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">01 ·</div>
+                                <h2>Database Creation</h2>
+                                <p>Connecting to a MySQL database and creating an Employee table using Node.js.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">create-table.js</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">var</span> <span class="t-var">mysql</span> = <span class="t-fn">require</span>(<span class="t-string">'mysql'</span>);
+<span class="t-kw">var</span> <span class="t-var">con</span> = <span class="t-var">mysql</span>
+  .<span class="t-fn">createConnection</span>({
+    <span class="t-prop">host</span>: <span class="t-string">"127.0.0.1"</span>,
+    <span class="t-prop">user</span>: <span class="t-string">"root"</span>,
+    <span class="t-prop">password</span>: <span class="t-string">""</span>,
+    <span class="t-prop">database</span>: <span class="t-string">"Texury"</span>
+  });
+
+<span class="t-var">con</span>.<span class="t-fn">connect</span>(<span class="t-kw">function</span>(<span class="t-var">err</span>){
+  <span class="t-kw">if</span>(<span class="t-var">err</span>) <span class="t-kw">throw</span> <span class="t-var">err</span>;
+  <span class="t-var">console</span>.<span class="t-fn">log</span>(<span class="t-string">"connected!"</span>);
+  <span class="t-kw">var</span> <span class="t-var">sql</span> = <span class="t-string">"CREATE TABLE
+    Employee (eid int(5),
+    age int(5),
+    name varchar(30))"</span>
+  <span class="t-var">con</span>.<span class="t-fn">query</span>(<span class="t-var">sql</span>,
+    <span class="t-kw">function</span>(<span class="t-var">err</span>, <span class="t-var">result</span>){
+      <span class="t-kw">if</span>(<span class="t-var">err</span>) <span class="t-kw">throw</span> <span class="t-var">err</span>;
+      <span class="t-var">console</span>.<span class="t-fn">log</span>(
+        <span class="t-string">"Table created"</span>);
+  });
+});</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Terminal Output</div>
+                                    <div class="terminal">
+                                        <div class="prompt">$ node create-table.js</div>
+                                        <div class="success">connected!</div>
+                                        <div class="success">Table created</div>
+                                        <div class="note">Database creation shows success</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">02 ·</div>
+                                <h2>Database Insertion</h2>
+                                <p>Inserting a record into the Employee table using a parameterized SQL query in
+                                    Node.js.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">insert-record.js</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">var</span> <span class="t-var">mysql</span> = <span class="t-fn">require</span>(<span class="t-string">'mysql'</span>);
+<span class="t-kw">var</span> <span class="t-var">con</span> = <span class="t-var">mysql</span>
+  .<span class="t-fn">createConnection</span>({
+    <span class="t-prop">host</span>: <span class="t-string">"127.0.0.1"</span>,
+    <span class="t-prop">user</span>: <span class="t-string">"root"</span>,
+    <span class="t-prop">password</span>: <span class="t-string">""</span>,
+    <span class="t-prop">database</span>: <span class="t-string">"Texury"</span>
+  });
+
+<span class="t-var">con</span>.<span class="t-fn">connect</span>(<span class="t-kw">function</span>(<span class="t-var">err</span>){
+  <span class="t-kw">if</span>(<span class="t-var">err</span>) <span class="t-kw">throw</span> <span class="t-var">err</span>;
+  <span class="t-var">console</span>.<span class="t-fn">log</span>(<span class="t-string">"connected!"</span>);
+  <span class="t-kw">var</span> <span class="t-var">sql</span> = <span class="t-string">"INSERT INTO
+    Employee (eid, age, name)
+    VALUES (2, 35,
+    'Kushvendra')"</span>;
+  <span class="t-var">con</span>.<span class="t-fn">query</span>(<span class="t-var">sql</span>,
+    <span class="t-kw">function</span>(<span class="t-var">err</span>, <span class="t-var">result</span>){
+      <span class="t-kw">if</span>(<span class="t-var">err</span>) <span class="t-kw">throw</span> <span class="t-var">err</span>;
+      <span class="t-var">console</span>.<span class="t-fn">log</span>(
+        <span class="t-string">"Table created"</span>);
+  });
+});</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Terminal Output</div>
+                                    <div class="terminal">
+                                        <div class="prompt">$ node insert-record.js</div>
+                                        <div class="success">connected!</div>
+                                        <div class="success">Table created</div>
+                                        <div class="note">Database insertion shows success in inserting</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">03 ·</div>
+                                <h2>Button Hover Function</h2>
+                                <p>A hover function where the button changes colour dynamically using JavaScript event
+                                    listeners.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">hover-button.js</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">const</span> <span class="t-var">btn</span> = document
+  .<span class="t-fn">querySelector</span>(<span class="t-string">'button'</span>);
+
+<span class="t-var">btn</span>.<span class="t-fn">addEventListener</span>(
+  <span class="t-string">'mouseover'</span>,
+  <span class="t-kw">function</span>() {
+    <span class="t-var">btn</span>.style
+      .backgroundColor
+      = <span class="t-string">'#ff9900'</span>;
+    <span class="t-var">btn</span>.style.color
+      = <span class="t-string">'#000000'</span>;
+});
+
+<span class="t-var">btn</span>.<span class="t-fn">addEventListener</span>(
+  <span class="t-string">'mouseout'</span>,
+  <span class="t-kw">function</span>() {
+    <span class="t-var">btn</span>.style
+      .backgroundColor
+      = <span class="t-string">'#000000'</span>;
+    <span class="t-var">btn</span>.style.color
+      = <span class="t-string">'#ffffff'</span>;
+});</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Live Preview</div>
+                                    <div
+                                        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem 0">
+                                        <p style="color:#888;font-size:.82rem;text-align:center">Hover the button to see
+                                            the colour change</p>
+                                        <button class="hover-demo-btn">Hover Me</button>
+                                        <p style="color:#555;font-size:.75rem">backgroundColor → #ff9900 on hover</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /nodejs -->
+
+                    <!-- ══ REACT ══ -->
+                    <div id="wt-react" class="wt-subpanel">
+                        <div class="empty-tab-state">
+                            <h3>React JS Outcomes</h3>
+                            <p>Your component structure and state management examples will go here.</p>
+                        </div>
+                    </div>
+
+                    <!-- ══ MY NAVBAR PROJECT ══ -->
+                    <div id="wt-navbar" class="wt-subpanel">
+                        <div class="navbar-project-section">
+                            <div class="section-title-bar">
+                                <h2>My Navbar Project</h2>
+                                <p>A collapsible sidebar navigation component built from scratch during this course —
+                                    using CSS transitions and vanilla JavaScript.</p>
+                            </div>
+
+                            <div class="navbar-project-grid">
+                                <!-- Live Preview -->
+                                <div>
+                                    <div class="sub-label">Live Preview — click ☰ to toggle</div>
+                                    <div class="nav-preview-wrap">
+                                        <div class="nav-preview-bar">preview.html</div>
+                                        <div class="fake-navbar-demo">
+                                            <div class="fake-sidebar" id="fakeNav">
+                                                <button class="fake-toggle" onclick="toggleFakeNav()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                                    </svg>
+                                                </button>
+                                                <a class="fake-link">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
+                                                    </svg>
+                                                    <span class="link-label">My Dashboard</span>
+                                                </a>
+                                                <a class="fake-link">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                                                    </svg>
+                                                    <span class="link-label">Content Calender</span>
+                                                </a>
+                                                <a class="fake-link">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+                                                    </svg>
+                                                    <span class="link-label">The Maison Library</span>
+                                                </a>
+                                                <a class="fake-link">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                    </svg>
+                                                    <span class="link-label">Favourated items</span>
+                                                </a>
+                                                <a class="fake-link" style="margin-top:auto">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                    </svg>
+                                                    <span class="link-label">Settings</span>
+                                                </a>
+                                            </div>
+                                            <div class="preview-hint">Hover links to see the white left-border animation
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Key CSS -->
+                                <div>
+                                    <div class="sub-label">Key CSS</div>
+                                    <div class="code-window">
+                                        <div class="window-header">
+                                            <div class="window-dots"><span class="dot-red"></span><span
+                                                    class="dot-yellow"></span><span class="dot-green"></span></div>
+                                            <div class="window-title">navbar.css</div>
+                                        </div>
+                                        <pre><code><span class="t-var">.navbar</span> {
+  <span class="t-prop">display</span>: flex;
+  <span class="t-prop">flex-direction</span>: column;
+  <span class="t-prop">width</span>: <span class="t-num">195px</span>;
+  <span class="t-prop">height</span>: <span class="t-num">100vh</span>;
+  <span class="t-prop">background-color</span>: black;
+  <span class="t-prop">transition</span>:
+    width ease-in <span class="t-num">0.3s</span>;
+}
+
+<span class="t-comment">/* Hover border animation */</span>
+<span class="t-var">.navbar a</span>::after {
+  <span class="t-prop">content</span>: <span class="t-string">""</span>;
+  <span class="t-prop">position</span>: absolute;
+  <span class="t-prop">height</span>: <span class="t-num">100%</span>;
+  <span class="t-prop">width</span>: <span class="t-num">2px</span>;
+  <span class="t-prop">background-color</span>: white;
+  <span class="t-prop">left</span>: <span class="t-num">0px</span>;
+  <span class="t-prop">transform</span>: scaleY(<span class="t-num">0</span>);
+  <span class="t-prop">transition</span>:
+    transform <span class="t-num">0.5s</span> ease-in-out;
+}
+<span class="t-var">.navbar a</span>:hover::after {
+  <span class="t-prop">transform</span>: scaleY(<span class="t-num">1</span>);
+}
+
+<span class="t-comment">/* Collapsed state */</span>
+<span class="t-var">.navbarclosed</span> {
+  <span class="t-prop">width</span>: <span class="t-num">80px</span>;
+  <span class="t-prop">overflow</span>: hidden;
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div><!-- /grid -->
+
+                        </div>
+                    </div><!-- /navbar -->
+
+                </div><!-- /wt-content -->
+            </div><!-- /wt-layout -->
+        </div><!-- /panel-wt -->
+    </div><!-- /section -->
+
+    <footer>
+        <div class="footer-bottom">Ayush Kumar Ojha · <span>Learning Outcomes Portfolio</span></div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+
+        // Panel switcher
+        function switchPanel(id) {
+            document.querySelectorAll('.outcome-panel').forEach(p => p.classList.remove('active'));
+            const panel = document.getElementById('panel-' + id);
+            panel.classList.add('active');
+            setTimeout(() => {
+                panel.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('active');
+                });
+            }, 50);
+        }
+
+        // WT tab switcher
+        function switchWtTab(event, id) {
+            document.querySelectorAll('.wt-tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.wt-subpanel').forEach(p => p.classList.remove('active'));
+            const sub = document.getElementById('wt-' + id);
+            sub.classList.add('active');
+            setTimeout(() => {
+                sub.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('active');
+                });
+            }, 50);
+        }
+
+        // JS demos
+        function toggleTheme() {
+            const box = document.getElementById('theme-box');
+            const isLight = box.classList.contains('light');
+            box.classList.toggle('light', !isLight);
+            box.classList.toggle('dark', isLight);
+            box.textContent = isLight ? 'Dark Mode Active' : 'Light Mode Active';
+        }
+
+        function fakeFetch() {
+            const el = document.getElementById('fetch-result');
+            el.style.color = '#999';
+            el.textContent = 'Fetching…';
+            setTimeout(() => {
+                el.style.color = '#111';
+                el.textContent = '{ name: "Ayush Ojha", role: "Developer" }';
+            }, 900);
+        }
+
+        let count = 0;
+        function updateCounter(amt) {
+            count += amt;
+            document.getElementById('counter-num').textContent = count;
+        }
+
+        // Fake navbar toggle
+        function toggleFakeNav() {
+            document.getElementById('fakeNav').classList.toggle('closed');
+        }
+    </script>
+</body>
+
+</html>
