@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .architecture-page {
+            background: #000;
+            min-height: 100vh;
+        }
+
+        /* HERO */
+
+        .hero {
+
+            height: 300px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-bottom: 2px solid #ff9900;
+
+            background:
+                radial-gradient(circle,
+                    rgba(255, 153, 0, .15),
+                    transparent 70%);
+        }
+
+        .hero h1 {
+
+            font-size: 5rem;
+
+            color: white;
+
+            letter-spacing: 5px;
+
+            text-shadow:
+                0 0 20px #ff9900,
+                0 0 40px #ff9900;
+        }
+
+        /* SECTION */
+
+        .architecture-section {
+
+            padding: 100px 70px;
+        }
+
+        .section-label {
+
+            color: #ff9900;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 10px;
+        }
+
+        .architecture-section h2 {
+
+            font-size: 3rem;
+
+            margin-bottom: 20px;
+        }
+
+        .underline {
+
+            width: 120px;
+            height: 4px;
+
+            background: #ff9900;
+
+            box-shadow:
+                0 0 10px #ff9900,
+                0 0 20px #ff9900;
+
+            margin-bottom: 80px;
+        }
+
+        /* CLIENTS */
+
+        .clients {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 30px;
+        }
+
+        .client-box {
+
+            padding: 30px;
+
+            text-align: center;
+
+            border: 2px solid #ff9900;
+
+            border-radius: 80px;
+
+            background:
+                rgba(255, 153, 0, .05);
+
+            transition: .4s;
+        }
+
+        .client-box:hover {
+
+            transform:
+                translateY(-10px) scale(1.03);
+
+            box-shadow:
+                0 0 20px #ff9900,
+                0 0 50px rgba(255, 153, 0, .5);
+        }
+
+        .client-box h3 {
+
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+
+        .client-box p {
+
+            color: white;
+        }
+
+        /* ARROWS */
+
+        .arrow-row {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            text-align: center;
+
+            margin: 30px 0;
+
+            font-size: 2rem;
+
+            color: #ff9900;
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            50% {
+
+                opacity: .3;
+            }
+        }
+
+        /* INTERNET */
+
+        .internet-box {
+
+            padding: 35px;
+
+            text-align: center;
+
+            font-size: 1.5rem;
+
+            font-weight: 700;
+
+            color: #fff;
+
+            border: 2px solid #ff9900;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(255, 153, 0, .12),
+                    rgba(255, 153, 0, .03));
+
+            box-shadow:
+                0 0 15px rgba(255, 153, 0, .3);
+        }
+
+        /* SERVERS */
+
+        .servers {
+
+            margin-top: 30px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 30px;
+        }
+
+        .server-box {
+
+            border: 2px solid #ff9900;
+
+            overflow: hidden;
+
+            transition: .4s;
+
+            background:
+                rgba(255, 153, 0, .04);
+        }
+
+        .server-box:hover {
+
+            transform:
+                translateY(-10px);
+
+            box-shadow:
+                0 0 20px #ff9900,
+                0 0 40px rgba(255, 153, 0, .4);
+        }
+
+        .server-title {
+
+            padding: 25px;
+
+            font-size: 1.2rem;
+
+            font-weight: 700;
+
+            text-align: center;
+
+            color: #ff9900;
+
+            border-bottom: 2px solid #ff9900;
+        }
+
+        .server-data {
+
+            padding: 25px;
+
+            text-align: center;
+
+            color: #ddd;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px) {
+
+            .clients,
+            .servers {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .arrow-row {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .clients,
+            .servers {
+
+                grid-template-columns: 1fr;
+            }
+
+            .arrow-row {
+
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+
+                font-size: 3rem;
+            }
+
+            .architecture-section {
+
+                padding: 70px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="architecture-page">
+
+        <div class="hero">
+
+            <h1>ARCHITECTURE</h1>
+
+        </div>
+
+        <section class="architecture-section">
+
+            <p class="section-label">SYSTEM DESIGN</p>
+
+            <h2>CLIENT-SERVER ARCHITECTURE</h2>
+
+            <div class="underline"></div>
+
+            <!-- CLIENTS -->
+
+            <div class="clients">
+
+                <div class="client-box">
+                    <h3>Client 1</h3>
+                    <p>(Web Browser)</p>
+                </div>
+
+                <div class="client-box">
+                    <h3>Client 2</h3>
+                    <p>(Mobile Web)</p>
+                </div>
+
+                <div class="client-box">
+                    <h3>Client 3</h3>
+                    <p>(Admin Panel)</p>
+                </div>
+
+                <div class="client-box">
+                    <h3>Client 4</h3>
+                    <p>(Other Users)</p>
+                </div>
+
+            </div>
+
+            <!-- ARROWS -->
+
+            <div class="arrow-row">
+
+                <span>↕</span>
+                <span>↕</span>
+                <span>↕</span>
+                <span>↕</span>
+
+            </div>
+
+            <!-- INTERNET -->
+
+            <div class="internet-box">
+
+                Internet (HTTP REST API / JSON)
+
+            </div>
+
+            <!-- ARROWS -->
+
+            <div class="arrow-row">
+
+                <span>↕</span>
+                <span>↕</span>
+                <span>↕</span>
+                <span>↕</span>
+
+            </div>
+
+            <!-- SERVERS -->
+
+            <div class="servers">
+
+                <div class="server-box">
+
+                    <div class="server-title">
+                        Auth & Admin Server
+                    </div>
+
+                    <div class="server-data">
+                        Users & Admins DB
+                    </div>
+
+                </div>
+
+                <div class="server-box">
+
+                    <div class="server-title">
+                        Expense Engine
+                    </div>
+
+                    <div class="server-data">
+                        Transactions DB
+                    </div>
+
+                </div>
+
+                <div class="server-box">
+
+                    <div class="server-title">
+                        Group Management
+                    </div>
+
+                    <div class="server-data">
+                        Group Records
+                    </div>
+
+                </div>
+
+                <div class="server-box">
+
+                    <div class="server-title">
+                        Static Web Server
+                    </div>
+
+                    <div class="server-data">
+                        Frontend HTML/JS
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</body>
+
+</html>
