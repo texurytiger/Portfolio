@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learning Outcomes — Ayush Ojha</title>
+    <title>Learning Outcomes — Manthan Raykar</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap"
         rel="stylesheet" />
@@ -1714,10 +1714,122 @@
 
                     <!-- ══ REACT ══ -->
                     <div id="wt-react" class="wt-subpanel">
-                        <div class="empty-tab-state">
-                            <h3>React JS Outcomes</h3>
-                            <p>Your component structure and state management examples will go here.</p>
+
+                        <!-- 01 Components & Props -->
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">01 ·</div>
+                                <h2>Components & Props</h2>
+                                <p>Building reusable UI pieces that accept dynamic data via properties (props).</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">Greeting.jsx</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">const</span> <span class="t-fn">Greeting</span> = ({ <span class="t-var">name</span> }) <span class="t-kw">=&gt;</span> {
+  <span class="t-kw">return</span> (
+    <span class="t-tag">&lt;div</span> <span class="t-attr">className</span>=<span class="t-str">"card"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;h3&gt;</span>Hello, {<span class="t-var">name</span>}!<span class="t-tag">&lt;/h3&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  );
+};
+
+<span class="t-tag">&lt;Greeting</span> <span class="t-attr">name</span>=<span class="t-str">"Manthan"</span> <span class="t-tag">/&gt;</span></code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div style="margin-bottom:1rem">
+                                        <label
+                                            style="display:block;font-size:.8rem;font-weight:700;color:#888;margin-bottom:.5rem;letter-spacing:.05em">Enter
+                                            a name to pass as a prop:</label>
+                                        <input id="prop-input" type="text" placeholder="e.g. Manthan"
+                                            oninput="updateGreeting(this.value)"
+                                            style="width:100%;padding:.8rem;border:2px solid #eee;border-radius:5px;font-family:'Syne',sans-serif;font-size:.9rem;margin-bottom:1rem;transition:border-color .3s"
+                                            onfocus="this.style.borderColor='#ff9900'"
+                                            onblur="this.style.borderColor='#eee'" />
+                                        <div id="greeting-card"
+                                            style="background:#111;border:1px solid #222;border-radius:6px;padding:1.2rem 1.5rem">
+                                            <h3
+                                                style="font-family:'Playfair Display',serif;font-size:1.25rem;color:#ff9900">
+                                                Hello, Guest!</h3>
+                                        </div>
+                                        <div
+                                            style="margin-top:.8rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#aaa;background:#f8f8f8;padding:.7rem 1rem;border-radius:4px">
+                                            &lt;Greeting name=<span style="color:#ff9900">"<span
+                                                    id="prop-display">Guest</span>"</span> /&gt;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- 02 State Management (useState) -->
+                        <div class="demo-section reveal">
+                            <div class="demo-header">
+                                <div class="demo-number">02 ·</div>
+                                <h2>State Management (useState)</h2>
+                                <p>Using hooks to store and update localized component state, triggering re-renders.</p>
+                                <div class="demo-divider"></div>
+                            </div>
+                            <div class="interactive-demo">
+                                <div class="code-window">
+                                    <div class="window-header">
+                                        <div class="window-dots"><span class="dot-red"></span><span
+                                                class="dot-yellow"></span><span class="dot-green"></span></div>
+                                        <div class="window-title">TodoList.jsx</div>
+                                    </div>
+                                    <pre><code><span class="t-kw">const</span> [<span class="t-var">todos</span>, <span class="t-var">setTodos</span>]
+  = <span class="t-fn">useState</span>([]);
+
+<span class="t-kw">const</span> <span class="t-fn">addTodo</span> = (<span class="t-var">task</span>) <span class="t-kw">=&gt;</span> {
+  <span class="t-fn">setTodos</span>([
+    ...<span class="t-var">todos</span>, <span class="t-var">task</span>
+  ]);
+};
+
+<span class="t-kw">return</span> (
+  <span class="t-tag">&lt;ul&gt;</span>
+    {<span class="t-var">todos</span>.<span class="t-fn">map</span>(<span class="t-var">t</span> <span class="t-kw">=&gt;</span>
+      <span class="t-tag">&lt;li&gt;</span>{<span class="t-var">t</span>}<span class="t-tag">&lt;/li&gt;</span>
+    )}
+  <span class="t-tag">&lt;/ul&gt;</span>
+);</code></pre>
+                                </div>
+                                <div class="output-window">
+                                    <div class="output-label">Rendered Output</div>
+                                    <div style="display:flex;gap:.6rem;margin-bottom:1.1rem">
+                                        <input id="todo-input" type="text" placeholder="New task…"
+                                            onkeydown="if(event.key==='Enter')addTodoItem()"
+                                            style="flex:1;padding:.8rem;border:2px solid #eee;border-radius:5px;font-family:'Syne',sans-serif;font-size:.88rem;transition:border-color .3s"
+                                            onfocus="this.style.borderColor='#ff9900'"
+                                            onblur="this.style.borderColor='#eee'" />
+                                        <button onclick="addTodoItem()"
+                                            style="background:#111;color:#fff;border:2px solid #222;padding:.8rem 1.2rem;border-radius:5px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;transition:all .3s;font-size:.88rem;white-space:nowrap"
+                                            onmouseover="this.style.background='#ff9900';this.style.color='#000';this.style.borderColor='#ff9900'"
+                                            onmouseout="this.style.background='#111';this.style.color='#fff';this.style.borderColor='#222'">Add</button>
+                                    </div>
+                                    <ul id="todo-list"
+                                        style="list-style:none;padding:0;margin:0;max-height:200px;overflow-y:auto">
+                                        <li
+                                            style="display:flex;align-items:center;gap:.7rem;padding:.7rem .9rem;background:#f8f8f8;border-radius:5px;margin-bottom:.5rem;font-size:.88rem;color:#333;border-left:3px solid #ff9900">
+                                            <span style="color:#ff9900;font-size:.7rem">▶</span> Learn React
+                                        </li>
+                                        <li
+                                            style="display:flex;align-items:center;gap:.7rem;padding:.7rem .9rem;background:#f8f8f8;border-radius:5px;margin-bottom:.5rem;font-size:.88rem;color:#333;border-left:3px solid #ff9900">
+                                            <span style="color:#ff9900;font-size:.7rem">▶</span> same with react
+                                        </li>
+                                    </ul>
+                                    <div id="todo-empty"
+                                        style="display:none;text-align:center;color:#bbb;font-size:.82rem;padding:1rem">
+                                        No tasks yet — add one above</div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- ══ MY NAVBAR PROJECT ══ -->
@@ -1846,7 +1958,7 @@
     </div><!-- /section -->
 
     <footer>
-        <div class="footer-bottom">Ayush Kumar Ojha · <span>Learning Outcomes Portfolio</span></div>
+        <div class="footer-bottom">Manthan  Raykar · <span>Learning Outcomes Portfolio</span></div>
     </footer>
 
     <script>
@@ -1899,7 +2011,7 @@
             el.textContent = 'Fetching…';
             setTimeout(() => {
                 el.style.color = '#111';
-                el.textContent = '{ name: "Ayush Ojha", role: "Developer" }';
+                el.textContent = '{ name: "Manthan Raykar", role: "Developer" }';
             }, 900);
         }
 
@@ -1907,6 +2019,28 @@
         function updateCounter(amt) {
             count += amt;
             document.getElementById('counter-num').textContent = count;
+        }
+
+        // React: Greeting prop demo
+        function updateGreeting(val) {
+            const name = val.trim() || 'Guest';
+            document.getElementById('greeting-card').innerHTML =
+                '<h3 style="font-family:\'Playfair Display\',serif;font-size:1.25rem;color:#ff9900">Hello, ' + name + '!</h3>';
+            document.getElementById('prop-display').textContent = name;
+        }
+
+        // React: Todo list demo
+        function addTodoItem() {
+            const input = document.getElementById('todo-input');
+            const task = input.value.trim();
+            if (!task) return;
+            const list = document.getElementById('todo-list');
+            const li = document.createElement('li');
+            li.style.cssText = 'display:flex;align-items:center;gap:.7rem;padding:.7rem .9rem;background:#f8f8f8;border-radius:5px;margin-bottom:.5rem;font-size:.88rem;color:#333;border-left:3px solid #ff9900;animation:fadeUp .3s ease';
+            li.innerHTML = '<span style="color:#ff9900;font-size:.7rem">▶</span> ' + task;
+            list.appendChild(li);
+            input.value = '';
+            input.focus();
         }
 
         // Fake navbar toggle
