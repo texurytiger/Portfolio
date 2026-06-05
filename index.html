@@ -199,8 +199,6 @@
         .cyber {
             background: black;
             display: flex;
-            flex-wrap: wrap;
-            gap: 50px;
             justify-content: space-between;
             min-height: 100vh;
             padding: 40px 80px;
@@ -211,8 +209,7 @@
         }
 
         .left-side {
-            flex: 1;
-            min-width: 400px;
+            width: 55%;
             height: 800px;
             position: relative;
 
@@ -319,8 +316,7 @@
         }
 
         .right-side {
-            flex: 1;
-            min-width: 400px;
+            width: 45%;
         }
 
         .born h1 {
@@ -345,8 +341,7 @@
         .item {
             position: relative;
 
-            width: 100%;
-            max-width: 550px;
+            width: 700px;
             min-height: 130px;
             animation: slideIn .8s ease forwards;
             opacity: 0;
@@ -790,40 +785,6 @@
             animation:
                 timelineFlow 4s infinite linear;
         }
-
-        @media (max-width: 1200px) {
-
-            .cyber {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .left-side {
-                transform: none;
-            }
-
-            .right-side {
-                margin-left: 0;
-            }
-
-            .ring-container {
-                width: 500px;
-                height: 500px;
-            }
-
-            .developer {
-                width: 280px;
-            }
-
-            .item {
-                width: 100%;
-                max-width: 500px;
-            }
-
-            .born h1 {
-                font-size: 3rem;
-            }
-        }   
 
         @keyframes timelineFlow {
 
