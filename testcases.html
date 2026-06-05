@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quality Assurance</title>
+
+    <style>
+        :root {
+            --orange: #ff9900;
+            --black: #050505;
+            --card: #111111;
+            --white: #ffffff;
+            --green: #00ff66;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background:
+                radial-gradient(circle at 20% 20%,
+                    rgba(255, 153, 0, .12),
+                    transparent 30%),
+
+                radial-gradient(circle at 80% 70%,
+                    rgba(255, 153, 0, .08),
+                    transparent 35%);
+
+            pointer-events: none;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 45vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: white;
+
+            text-shadow:
+                0 0 15px rgba(255, 153, 0, .5);
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin-top: 20px;
+
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        /* TABS */
+
+        .tabs {
+
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+
+            padding: 15px 35px;
+
+            border: 2px solid var(--orange);
+
+            background: transparent;
+
+            color: white;
+
+            cursor: pointer;
+
+            border-radius: 50px;
+
+            transition: .4s;
+        }
+
+        .tab:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 0 15px rgba(255, 153, 0, .5);
+        }
+
+        .tab.active {
+
+            background: var(--orange);
+
+            color: black;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 0 20px var(--orange);
+        }
+
+        /* CONTENT */
+
+        .content {
+            width: min(1400px, 95%);
+            margin: auto;
+            padding-bottom: 80px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn .5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* TABLE WRAPPER */
+
+        .table-card {
+
+            background: rgba(255, 255, 255, .03);
+
+            border: 1px solid rgba(255, 153, 0, .2);
+
+            border-radius: 20px;
+
+            overflow: auto;
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .08);
+        }
+
+        /* TABLE */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1100px;
+        }
+
+        thead {
+            background: #111;
+        }
+
+        thead th {
+
+            color: var(--orange);
+
+            padding: 20px;
+            text-align: left;
+
+            font-size: 15px;
+        }
+
+        tbody tr {
+
+            border-top: 1px solid rgba(255, 153, 0, .15);
+
+            transition: .3s;
+        }
+
+        tbody tr:hover {
+
+            background: rgba(255, 153, 0, .06);
+        }
+
+        tbody td {
+
+            padding: 20px;
+            color: #ddd;
+
+            line-height: 1.6;
+        }
+
+        /* STATUS */
+
+        .pass {
+
+            background: rgba(0, 255, 100, .12);
+
+            color: var(--green);
+
+            padding: 8px 18px;
+
+            border-radius: 25px;
+
+            font-weight: 700;
+        }
+
+        .fail {
+
+            background: rgba(255, 0, 0, .12);
+
+            color: #ff4444;
+
+            padding: 8px 18px;
+
+            border-radius: 25px;
+
+            font-weight: 700;
+        }
+
+        /* COUNTER */
+
+        .stats {
+
+            display: flex;
+            justify-content: flex-end;
+
+            margin-bottom: 20px;
+
+            font-weight: 700;
+
+            color: var(--green);
+
+            text-shadow:
+                0 0 10px rgba(0, 255, 100, .5);
+        }
+
+        @media(max-width:768px) {
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .content {
+                width: 98%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>QUALITY ASSURANCE</h1>
+
+        <p>
+            Rigorous algorithmic validation and system lifecycle testing
+            for the Expense Splitter application.
+        </p>
+
+    </section>
+
+    <!-- TABS -->
+
+    <div class="tabs">
+
+        <button class="tab active" data-tab="unit">
+            Unit Testing
+        </button>
+
+        <button class="tab" data-tab="integration">
+            Integration Testing
+        </button>
+
+        <button class="tab" data-tab="system">
+            System Test Cases
+        </button>
+
+    </div>
+
+    <div class="content">
+
+        <!-- UNIT TESTING -->
+
+        <section id="unit" class="section active">
+
+            <div class="stats">
+                ✓ 4 / 4 PASSED
+            </div>
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Requirement</th>
+                            <th>Test Description</th>
+                            <th>Expected Result</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU01</td>
+                            <td>Login with valid credentials</td>
+                            <td>
+                                1. Go to app<br>
+                                2. Enter valid email<br>
+                                3. Enter valid password<br>
+                                4. Click Login →
+                            </td>
+                            <td>
+                                Email: admin@test.com<br>
+                                Password: Pass@123
+                            </td>
+                            <td>
+                                User logs in and reaches Setup/App screen
+                            </td>
+                            <td>
+                                Login successful
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU02</td>
+                            <td>Login with invalid password</td>
+                            <td>
+                                1. Go to app<br>
+                                2. Enter valid email<br>
+                                3. Enter wrong password<br>
+                                4. Click Login →
+                            </td>
+                            <td>
+                                Email: admin@test.com<br>
+                                Password: wrong99
+                            </td>
+                            <td>
+                                Error message shown; login blocked
+                            </td>
+                            <td>
+                                Login unsuccessful
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU03</td>
+                            <td>Login with empty fields</td>
+                            <td>
+                                1. Go to app<br>
+                                2. Leave email &amp; password blank<br>
+                                3. Click Login →
+                            </td>
+                            <td>
+                                Email: (blank)<br>
+                                Password: (blank)
+                            </td>
+                            <td>
+                                'Please fill in all fields.' error shown
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU04</td>
+                            <td>Login with unregistered email</td>
+                            <td>
+                                1. Enter email not in DB<br>
+                                2. Enter any password<br>
+                                3. Click Login →
+                            </td>
+                            <td>
+                                Email: ghost@x.com<br>
+                                Password: pass123
+                            </td>
+                            <td>
+                                'User not found' error shown
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU05</td>
+                            <td>Register new admin account</td>
+                            <td>
+                                1. Click Register<br>
+                                2. Enter email &amp; password<br>
+                                3. Confirm password<br>
+                                4. Click Register →
+                            </td>
+                            <td>
+                                Email: new@test.com<br>
+                                Password: abcdeA*1f
+                            </td>
+                            <td>
+                                Account created; redirected to login
+                            </td>
+                            <td>
+                                Registration successful
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU06</td>
+                            <td>Register with mismatched passwords</td>
+                            <td>
+                                1. Click Register<br>
+                                2. Enter password and different confirm<br>
+                                3. Click Register →
+                            </td>
+                            <td>
+                                Password: abcdef<br>
+                                Confirm: xyz123
+                            </td>
+                            <td>
+                                'Passwords do not match.' error
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU07</td>
+                            <td>Register with password &lt; 6 chars</td>
+                            <td>
+                                1. Click Register<br>
+                                2. Enter short password<br>
+                                3. Click Register →
+                            </td>
+                            <td>
+                                Password: abc
+                            </td>
+                            <td>
+                                'Password must be at least 6 characters.' error
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU08</td>
+                            <td>Register with already-used email</td>
+                            <td>
+                                1. Try to register existing email<br>
+                                2. Click Register →
+                            </td>
+                            <td>
+                                Email: admin@test.com
+                            </td>
+                            <td>
+                                'Email already exists' error shown
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- INTEGRATION TESTING -->
+
+        <section id="integration" class="section">
+
+            <div class="stats">
+                ✓ 6 / 6 PASSED
+            </div>
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Integration Path</th>
+                            <th>Description</th>
+                            <th>Expected Result</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>IT01</td>
+                            <td>Frontend → API</td>
+                            <td>Registration request sent</td>
+                            <td>Valid JSON request generated</td>
+                            <td><span class="pass">PASS</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>IT02</td>
+                            <td>API → Validation</td>
+                            <td>Input validation execution</td>
+                            <td>Invalid inputs rejected</td>
+                            <td><span class="pass">PASS</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>IT03</td>
+                            <td>API → bcrypt</td>
+                            <td>Password hashing</td>
+                            <td>Encrypted hash generated</td>
+                            <td><span class="pass">PASS</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>IT04</td>
+                            <td>API → Database</td>
+                            <td>Store admin record</td>
+                            <td>MongoDB document saved</td>
+                            <td><span class="pass">PASS</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>IT05</td>
+                            <td>API → JWT</td>
+                            <td>Token generation</td>
+                            <td>JWT returned successfully</td>
+                            <td><span class="pass">PASS</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>IT06</td>
+                            <td>API → Response</td>
+                            <td>Response returned to frontend</td>
+                            <td>HTTP success response generated</td>
+                            <td><span class="pass">PASS</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- SYSTEM TEST CASES -->
+
+        <section id="system" class="section">
+
+            <div class="stats">
+                ✓ 4 / 4 PASSED
+            </div>
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Requirement</th>
+                            <th>Test Description</th>
+                            <th>Expected Result</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU01</td>
+                            <td>Login with valid credentials</td>
+                            <td>
+                                1. Go to app<br>
+                                2. Enter valid email<br>
+                                3. Enter valid password<br>
+                                4. Click Login →
+                            </td>
+                            <td>
+                                Email: admin@test.com<br>
+                                Password: Pass@123
+                            </td>
+                            <td>
+                                User logs in and reaches Setup/App screen
+                            </td>
+                            <td>
+                                Login successful
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU02</td>
+                            <td>Login with invalid password</td>
+                            <td>
+                                1. Go to app<br>
+                                2. Enter valid email<br>
+                                3. Enter wrong password<br>
+                                4. Click Login →
+                            </td>
+                            <td>
+                                Email: admin@test.com<br>
+                                Password: wrong99
+                            </td>
+                            <td>
+                                Error message shown; login blocked
+                            </td>
+                            <td>
+                                Login unsuccessful
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU03</td>
+                            <td>Login with empty fields</td>
+                            <td>
+                                1. Go to app<br>
+                                2. Leave email &amp; password blank<br>
+                                3. Click Login →
+                            </td>
+                            <td>
+                                Email: (blank)<br>
+                                Password: (blank)
+                            </td>
+                            <td>
+                                'Please fill in all fields.' error shown
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RE01 (Login)</td>
+                            <td>TU04</td>
+                            <td>Login with unregistered email</td>
+                            <td>
+                                1. Enter email not in DB<br>
+                                2. Enter any password<br>
+                                3. Click Login →
+                            </td>
+                            <td>
+                                Email: ghost@x.com<br>
+                                Password: pass123
+                            </td>
+                            <td>
+                                'User not found' error shown
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU05</td>
+                            <td>Register new admin account</td>
+                            <td>
+                                1. Click Register<br>
+                                2. Enter email &amp; password<br>
+                                3. Confirm password<br>
+                                4. Click Register →
+                            </td>
+                            <td>
+                                Email: new@test.com<br>
+                                Password: abcdeA*1f
+                            </td>
+                            <td>
+                                Account created; redirected to login
+                            </td>
+                            <td>
+                                Registration successful
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU06</td>
+                            <td>Register with mismatched passwords</td>
+                            <td>
+                                1. Click Register<br>
+                                2. Enter password and different confirm<br>
+                                3. Click Register →
+                            </td>
+                            <td>
+                                Password: abcdef<br>
+                                Confirm: xyz123
+                            </td>
+                            <td>
+                                'Passwords do not match.' error
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU07</td>
+                            <td>Register with password &lt; 6 chars</td>
+                            <td>
+                                1. Click Register<br>
+                                2. Enter short password<br>
+                                3. Click Register →
+                            </td>
+                            <td>
+                                Password: abc
+                            </td>
+                            <td>
+                                'Password must be at least 6 characters.' error
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RE02 (Register)</td>
+                            <td>TU08</td>
+                            <td>Register with already-used email</td>
+                            <td>
+                                1. Try to register existing email<br>
+                                2. Click Register →
+                            </td>
+                            <td>
+                                Email: admin@test.com
+                            </td>
+                            <td>
+                                'Email already exists' error shown
+                            </td>
+                            <td>
+                                Error displayed
+                            </td>
+                            <td>
+                                <span class="pass">Pass</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+
+        const tabs = document.querySelectorAll(".tab");
+        const sections = document.querySelectorAll(".section");
+
+        tabs.forEach(tab => {
+
+            tab.addEventListener("click", () => {
+
+                tabs.forEach(t => t.classList.remove("active"));
+                sections.forEach(s => s.classList.remove("active"));
+
+                tab.classList.add("active");
+
+                document
+                    .getElementById(tab.dataset.tab)
+                    .classList.add("active");
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
