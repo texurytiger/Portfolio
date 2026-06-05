@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+
+<title>About Me</title>
+
+<style>
+
+:root{
+    --bg:#000000;
+    --card:#080808;
+    --orange:#ff6b00;
+    --white:#ffffff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:'Roboto',sans-serif;
+}
+
+.about{
+    max-width:1400px;
+    margin:auto;
+    padding:100px 50px;
+}
+
+.intro{
+    color:var(--orange);
+    font-weight:700;
+    letter-spacing:4px;
+    margin-bottom:20px;
+}
+
+.title{
+    font-size:5rem;
+    font-weight:900;
+    text-transform:uppercase;
+    margin-bottom:20px;
+}
+
+.line{
+    width:120px;
+    height:4px;
+    background:var(--orange);
+    margin-bottom:60px;
+    box-shadow:
+    0 0 10px var(--orange),
+    0 0 20px var(--orange);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(450px,1fr));
+    gap:35px;
+}
+
+.card{
+    background:linear-gradient(
+        145deg,
+        rgba(255,107,0,.05),
+        rgba(255,107,0,.01)
+    );
+
+    border:2px solid rgba(255,107,0,.8);
+
+    padding:35px;
+
+    position:relative;
+
+    transition:.5s ease;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(8px);
+
+    clip-path:polygon(
+    25px 0,
+    100% 0,
+    100% calc(100% - 25px),
+    calc(100% - 25px) 100%,
+    0 100%,
+    0 25px
+    );
+
+    box-shadow:
+    0 0 10px rgba(255,107,0,.4),
+    inset 0 0 15px rgba(255,107,0,.15);
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,107,0,.15),
+    transparent
+    );
+
+    transform:translateX(-100%);
+    transition:.7s;
+}
+
+.card:hover::before{
+    transform:translateX(100%);
+}
+
+.card:hover{
+    transform:translateY(-12px) scale(1.02);
+
+    border-color:var(--orange);
+
+    box-shadow:
+    0 0 20px rgba(255,107,0,.8),
+    0 0 50px rgba(255,107,0,.5),
+    inset 0 0 20px rgba(255,107,0,.2);
+}
+
+.card-number{
+    position:absolute;
+    right:25px;
+    top:20px;
+
+    color:var(--orange);
+
+    font-size:1.2rem;
+
+    font-weight:900;
+}
+
+.card h3{
+    color:var(--orange);
+    font-size:2rem;
+    margin-bottom:20px;
+    font-weight:900;
+}
+
+.card p{
+    color:#dddddd;
+    line-height:1.8;
+    font-size:1.1rem;
+}
+
+.tags{
+    margin-top:25px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.tag{
+    padding:10px 18px;
+
+    border:1px solid var(--orange);
+
+    color:var(--orange);
+
+    font-weight:700;
+
+    transition:.3s;
+
+    cursor:pointer;
+}
+
+.tag:hover{
+    background:var(--orange);
+    color:black;
+
+    box-shadow:
+    0 0 10px var(--orange),
+    0 0 20px var(--orange);
+}
+
+@media(max-width:768px){
+
+.title{
+    font-size:3rem;
+}
+
+.grid{
+    grid-template-columns:1fr;
+}
+
+.about{
+    padding:60px 20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="about">
+
+<p class="intro">INTRODUCTION</p>
+
+<h1 class="title">ABOUT ME</h1>
+
+<div class="line"></div>
+
+<div class="grid">
+
+<div class="card">
+<span class="card-number">01</span>
+
+<h3>Background</h3>
+
+<p>
+I'm currently pursuing Computer Science &
+Engineering and enjoy building full-stack
+applications, learning new technologies and
+creating efficient solutions.
+</p>
+
+</div>
+
+<div class="card">
+<span class="card-number">02</span>
+
+<h3>Interests</h3>
+
+<p>
+Gaming, Web Development, Hardware Projects,
+ESP32, UI Design and exploring modern
+technologies.
+</p>
+
+<div class="tags">
+<div class="tag">Web Dev</div>
+<div class="tag">Problem Solving</div>
+<div class="tag">Hardware</div>
+</div>
+
+</div>
+
+<div class="card">
+<span class="card-number">03</span>
+
+<h3>Current Focus</h3>
+
+<p>
+Building React applications, learning backend
+development and creating professional portfolio
+projects.
+</p>
+
+<div class="tags">
+<div class="tag">React</div>
+<div class="tag">Java</div>
+<div class="tag">API Dev</div>
+</div>
+
+</div>
+
+<div class="card">
+<span class="card-number">04</span>
+
+<h3>Academics</h3>
+
+<p>
+Applying concepts from OOP, DBMS, DSA and
+Computer Networks into real-world projects.
+</p>
+
+<div class="tags">
+<div class="tag">OOP</div>
+<div class="tag">DBMS</div>
+<div class="tag">Networks</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>
