@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+
+            --orange: #ff9900;
+            --black: #000000;
+            --card: #111111;
+            --text: #ffffff;
+
+        }
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        html,
+        body {
+
+            width: 100%;
+            min-height: 100%;
+
+            background: #000000;
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+
+            font-family: "Segoe UI", sans-serif;
+
+        }
+
+        .bg-glow {
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            background:
+
+                radial-gradient(circle at 15% 20%,
+                    rgba(255, 153, 0, .14),
+                    transparent 30%),
+
+                radial-gradient(circle at 85% 75%,
+                    rgba(255, 153, 0, .10),
+                    transparent 35%),
+
+                #000000;
+
+        }
+
+        .hero {
+
+            min-height: 50vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 80px;
+
+        }
+
+        .hero-card {
+
+            width: min(1000px, 100%);
+
+            text-align: center;
+
+            padding: 70px;
+
+            background: #0d0d0d;
+
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 0 30px rgba(255, 153, 0, .12);
+
+        }
+
+        .hero-card h1 {
+
+            color: white;
+
+            font-size: 5rem;
+
+            margin-bottom: 20px;
+
+        }
+
+        .hero-card p {
+
+            color: #cccccc;
+
+            font-size: 1.2rem;
+
+            line-height: 1.8;
+
+        }
+
+        .reflection-card {
+
+            background: #111111;
+
+            border: 1px solid rgba(255, 153, 0, .20);
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            transition: .35s;
+
+        }
+
+        .reflection-card:hover {
+
+            transform:
+                translateY(-10px);
+
+            border-color: #ff9900;
+
+            box-shadow:
+                0 0 35px rgba(255, 153, 0, .25);
+
+        }
+
+        .reflection-card h2 {
+
+            color: #ff9900;
+
+            margin-bottom: 20px;
+
+        }
+
+        .reflection-card p {
+
+            color: #d0d0d0;
+
+            line-height: 1.9;
+
+        }
+
+        .reflection-tab {
+
+            background: #111111;
+
+            color: white;
+
+            border: 1px solid rgba(255, 153, 0, .25);
+
+            padding: 18px 45px;
+
+            border-radius: 50px;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+        }
+
+        .reflection-tab:hover {
+
+            border-color: #ff9900;
+
+            box-shadow:
+                0 0 20px rgba(255, 153, 0, .3);
+
+        }
+
+        .reflection-tab.active {
+
+            background: #ff9900;
+
+            color: black;
+
+            font-weight: 700;
+
+        }
+
+        .icon {
+
+            width: 70px;
+            height: 70px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 153, 0, .10);
+
+            border:
+                1px solid rgba(255, 153, 0, .25);
+
+            color: #ff9900;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            font-size: 30px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .reflection-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(350px, 1fr));
+
+            gap: 35px;
+
+        }
+
+        .reflection-content {
+
+            display: none;
+
+        }
+
+        .active-content {
+
+            display: block;
+
+        }
+
+        .tab-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            margin-bottom: 60px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="bg-glow"></div>
+
+    <section class="hero">
+
+        <div class="hero-card">
+
+            <h1>COURSE REFLECTIONS</h1>
+
+            <p>
+                Personal takeaways, the hurdles I overcame,
+                and the mindset shifts I experienced during
+                this semester.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="reflection-section">
+
+        <div class="tab-container">
+
+            <button class="reflection-tab active" onclick="showSection('webtech', this)">
+                WEB TECHNOLOGY
+            </button>
+
+            <button class="reflection-tab" onclick="showSection('software', this)">
+                SOFTWARE ENGINEERING
+            </button>
+
+        </div>
+
+        <!-- WEB TECHNOLOGY -->
+
+        <div id="webtech" class="reflection-content active-content">
+
+            <div class="reflection-grid">
+
+                <div class="reflection-card">
+
+                    <div class="icon">🎓</div>
+
+                    <h2>Learning Outcomes</h2>
+
+                    <p>
+                        The most significant outcome was discovering exactly
+                        how websites function behind the scenes. I learned
+                        frontend development, backend communication,
+                        database integration and full-stack architecture.
+                    </p>
+
+                </div>
+
+                <div class="reflection-card">
+
+                    <div class="icon">⚠️</div>
+
+                    <h2>Challenges Faced</h2>
+
+                    <p>
+                        Understanding asynchronous programming and API
+                        communication was the biggest challenge.
+                        Learning promises, async/await and state
+                        management required significant practice.
+                    </p>
+
+                </div>
+
+                <div class="reflection-card">
+
+                    <div class="icon">🔧</div>
+
+                    <h2>Skills Gained</h2>
+
+                    <p>
+                        I gained practical experience with HTML, CSS,
+                        JavaScript, Node.js, Express, React and MySQL.
+                        I also improved debugging and deployment skills.
+                    </p>
+
+                </div>
+
+                <div class="reflection-card">
+
+                    <div class="icon">🏗️</div>
+
+                    <h2>Architectural Understanding</h2>
+
+                    <p>
+                        I learned how frontend, backend and database
+                        layers interact and why separation of concerns
+                        is important in scalable systems.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SOFTWARE ENGINEERING -->
+
+        <div id="software" class="reflection-content">
+
+            <div class="reflection-grid">
+
+                <div class="reflection-card">
+
+                    <div class="icon">📚</div>
+
+                    <h2>Learning Outcomes</h2>
+
+                    <p>
+                        Requirement gathering, UML diagrams,
+                        project planning and documentation taught
+                        me that software engineering begins long
+                        before writing code.
+                    </p>
+
+                </div>
+
+                <div class="reflection-card">
+
+                    <div class="icon">⚠️</div>
+
+                    <h2>Challenges Faced</h2>
+
+                    <p>
+                        Managing scope, deadlines and feature
+                        prioritization was difficult initially.
+                        Learning to follow structured workflows
+                        improved project quality.
+                    </p>
+
+                </div>
+
+                <div class="reflection-card">
+
+                    <div class="icon">🛠️</div>
+
+                    <h2>Skills Gained</h2>
+
+                    <p>
+                        I became comfortable with SDLC,
+                        Agile principles, software testing,
+                        documentation and version control
+                        using GitHub.
+                    </p>
+
+                </div>
+
+                <div class="reflection-card">
+
+                    <div class="icon">👥</div>
+
+                    <h2>Team Collaboration</h2>
+
+                    <p>
+                        Working in groups improved communication,
+                        task allocation, peer reviews and
+                        collaborative problem solving skills.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        function showSection(id, btn) {
+
+            document
+                .querySelectorAll(".reflection-content")
+                .forEach(section =>
+                    section.classList.remove("active-content")
+                );
+
+            document
+                .querySelectorAll(".reflection-tab")
+                .forEach(tab =>
+                    tab.classList.remove("active")
+                );
+
+            document
+                .getElementById(id)
+                .classList.add("active-content");
+
+            btn.classList.add("active");
+        }
+
+    </script>
+</body>
+
+</html>
